@@ -69,6 +69,14 @@ where
         self.touch_register(Register::CICLEAR)
     }
 
+    /// Set color gain value
+    pub fn set_color_gain(&mut self, value: u8) -> Result<(), Error<E>> {
+        if value < 4 {
+            self.write_register(Register::CONTROL1, value);
+        }
+        Ok(())
+    }
+
     /// Read the color / ambient light sensor data.
     ///
     /// Returns `nb::Error::WouldBlock` as long as the data is not ready.

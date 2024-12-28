@@ -225,7 +225,10 @@ impl Register {
     const AIHTL: u8 = 0x86;
     const PILT: u8 = 0x89;
     const PIHT: u8 = 0x8B;
+    const PERS: u8 = 0x8C;
     const CONFIG1: u8 = 0x8D;
+    const PPCR: u8 = 0x8E;
+    const CONTROL1: u8 = 0x8F;
     const CONFIG2: u8 = 0x90;
     const ID: u8 = 0x92;
     const STATUS: u8 = 0x93;
@@ -322,6 +325,21 @@ mod register {
     }
     impl_bitflags!(Config2, CONFIG2);
 
+    #[derive(Debug)]
+    pub struct Control1(u8);
+    impl Control1 {
+        pub const LDRIVE: u8 = 0b1100_0000;
+        pub const PGAIN: u8 = 0b0000_1100;
+        pub const AGAIN: u8 = 0b0000_0011;
+    }
+    impl_bitflags!(Control1, CONTROL1);
+
+    impl Default for Control1 {
+        fn default() -> Self {
+            Self { 0: 0x00 }
+        }
+    }
+
     impl Default for Config2 {
         fn default() -> Self {
             Self { 0: 1 }
@@ -369,6 +387,7 @@ pub struct Apds9960<I2C> {
     enable: register::Enable,
     config1: register::Config1,
     config2: register::Config2,
+    control1: register::Control1,
     gconfig1: register::GConfig1,
     gconfig4: register::GConfig4,
 }
@@ -384,6 +403,7 @@ where
             enable: register::Enable::default(),
             config1: register::Config1::default(),
             config2: register::Config2::default(),
+            control1: register::Control1::default(),
             gconfig1: register::GConfig1::default(),
             gconfig4: register::GConfig4::default(),
         }
