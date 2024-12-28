@@ -1,8 +1,8 @@
-use hal::blocking::i2c;
-use {
+use crate::{
     register::{Config1, Enable},
     Apds9960, BitFlags, Error, Register, DEV_ADDR,
 };
+use embedded_hal::i2c;
 
 macro_rules! impl_set_flag_reg {
     ($method:ident, $reg:ident) => {
@@ -18,7 +18,7 @@ macro_rules! impl_set_flag_reg {
 /// Common configuration.
 impl<I2C, E> Apds9960<I2C>
 where
-    I2C: i2c::Write<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Turn power on.
     pub fn enable(&mut self) -> Result<(), Error<E>> {

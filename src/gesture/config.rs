@@ -1,13 +1,13 @@
-use hal::blocking::i2c;
-use {
+use crate::{
     register::{Enable, GConfig1, GConfig4},
     Apds9960, BitFlags, Error, GestureDataThreshold, Register, DEV_ADDR,
 };
+use embedded_hal::i2c;
 
 /// Gesture engine configuration.
 impl<I2C, E> Apds9960<I2C>
 where
-    I2C: i2c::Write<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Enable gesture detection
     pub fn enable_gesture(&mut self) -> Result<(), Error<E>> {

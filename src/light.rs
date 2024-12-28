@@ -1,13 +1,13 @@
-use hal::blocking::i2c;
-use {
+use crate::{
     register::{Config2, Enable, Status},
     Apds9960, BitFlags, Error, LightData, Register,
 };
+use embedded_hal::i2c;
 
 /// Color and ambient light.
 impl<I2C, E> Apds9960<I2C>
 where
-    I2C: i2c::Write<Error = E> + i2c::WriteRead<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Enable color and ambient light detection.
     pub fn enable_light(&mut self) -> Result<(), Error<E>> {

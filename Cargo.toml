@@ -10,6 +10,7 @@ keywords = ["proximity", "light", "gesture", "sensor", "embedded-hal-driver"]
 categories = ["embedded", "hardware-support", "no-std"]
 homepage = "https://github.com/eldruin/apds9960-rs"
 documentation = "https://docs.rs/apds9960"
+edition = "2021"
 include = [
     "**/*.rs",
     "/Cargo.toml",
@@ -20,7 +21,7 @@ include = [
 ]
 
 [dependencies]
-embedded-hal = "0.2.5"
+embedded-hal = "1.0.0"
 nb = "1"
 
 [dev-dependencies]

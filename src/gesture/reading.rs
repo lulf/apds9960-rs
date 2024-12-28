@@ -1,10 +1,10 @@
-use hal::blocking::i2c;
-use {register::GStatus, Apds9960, BitFlags, Error, Register};
+use crate::{register::GStatus, Apds9960, BitFlags, Error, Register};
+use embedded_hal::i2c;
 
 /// Gesture data reading.
 impl<I2C, E> Apds9960<I2C>
 where
-    I2C: i2c::WriteRead<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Read the amount of available data in the gesture FIFO registers.
     pub fn read_gesture_data_level(&mut self) -> Result<u8, Error<E>> {
